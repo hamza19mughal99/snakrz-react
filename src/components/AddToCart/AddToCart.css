@@ -1,0 +1,57 @@
+.main-section{
+    border-top-right-radius: 5rem !important;
+    border-top-left-radius: 5rem !important;
+}
+
+.p-details h5{
+    font-size: 18px;
+    font-weight: 400;
+    color: #ff4200;
+}
+
+.p-details{
+    width: 40%;
+}
+
+.card-details{
+    margin-top: 20px;
+    background-color: #f8f8f8;
+}
+.place-order{
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+
+.cart-sec{
+    font-weight: 700;
+    color: #ff4200;
+}
+.inc-dec{
+    width: 70px;
+    display: flex;
+    justify-content: space-around;
+}
+.order-sum{
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-top: 20px !important;
+}
+.summary{
+    margin-top: 390px;
+}
+
+.summary h4{
+    font-weight: 700;
+    color: #ff4200;
+}
+
+.order-sum h4{
+    font-weight: 500;
+    color: #ff4200;
+}
+
+@media (max-width: 991px) {
+    .summary{
+        margin-top: 10px !important;
+    }
+}
