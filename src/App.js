@@ -1,11 +1,11 @@
 import React from "react";
-import RouteConfig from "./RouteConfig/RouteConfig";
+import MainApp from "./MainApp/MainApp";
 
 function App() {
 
   return (
     <>
-    <RouteConfig />
+    <MainApp />
     </>
   );
 }

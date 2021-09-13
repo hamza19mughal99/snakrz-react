@@ -50,6 +50,11 @@
     color: #ff4200;
 }
 
+
+.plus , .minus , .delete{
+    cursor: pointer;
+}
+
 @media (max-width: 991px) {
     .summary{
         margin-top: 10px !important;

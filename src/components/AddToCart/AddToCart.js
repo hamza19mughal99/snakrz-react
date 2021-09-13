@@ -1,31 +1,18 @@
-import React from "react";
+import React, {useContext} from "react";
+import { CartContext } from '../GlobalStore/CartContext';
 import { Row, Col, Form } from "react-bootstrap";
 import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 import "./AddToCart.css";
 import NumberFormat from 'react-number-format';
 
-const cart = [
-    {
-        id: 1,
-        name: "Zinger Burger",
-        price: "$40",
-        quantity: 1,
-    },
-    {
-        id: 2,
-        name: "Chicken Burger",
-        price: "$20",
-        quantity: 1,
-    },
-    {
-        id: 3,
-        name: "Quarter Broast",
-        price: "$50",
-        quantity: 1,
-    }
-]
 
 const AddToCart = () => {
+
+    let cart = JSON.parse(localStorage.getItem('cart'))
+
+
+    const { shoppingCart, totalAmount, dispatch } = useContext(CartContext)
+
     return (
         <>
             <Row style={{ justifyContent: "space-around" }} >
@@ -76,11 +63,7 @@ const AddToCart = () => {
                                     </Form>
                                 </div>
                             </div>
-                            <div className={'container'}>
-                                <p style={{ fontWeight: 600 }}
-                                    className={'mt-3'}
-                                >Cash</p>
-                            </div>
+                           
 
                             <hr />
 
@@ -95,29 +78,70 @@ const AddToCart = () => {
                         <hr />
                         <div className="mt-4" >
                             {
+                                cart.length > 0 ?
                                 cart.map((val) => {
                                     return (
                                         <>
-                                            <div className="cart-details d-flex justify-content-between">
+                                            <div key={val.id} className="cart-details d-flex justify-content-between">
                                                 <div className="cart-name">
                                                     <p> {val.name} </p>
                                                 </div>
                                                 <div>
-                                                    {val.price}
+                                                    ${val.price}
                                                 </div>
                                                 <div className="inc-dec">
                                                     <span className="plus">
-                                                        <FaPlus />
+                                                        <FaPlus 
+                                                        onClick={
+                                                            () =>
+                                                                dispatch({
+                                                                    type: 'INC',
+                                                                    id: val.id,
+                                                                    val
+                                                                })
+                                                        }
+                                                        />
                                                     </span>
                                                     <span className="quantity">
-                                                        {val.quantity}
+                                                        {val.Quantity}
                                                     </span>
-                                                    <span className="minus">
-                                                        <FaMinus />
+                                                    {
+                                                        val.Quantity > 1 ? 
+                                                        <span className="minus">
+                                                        <FaMinus 
+                                                        
+                                                        onClick={
+                                                            () =>
+                                                                dispatch({
+                                                                    type: 'DRC',
+                                                                    id: val.id,
+                                                                    val
+                                                                })
+
+                                                        }
+                                                        />
+                                                    </span> :
+                                                    <span className="minus"> 
+                                                    <FaMinus />
                                                     </span>
+                                                    }
+                                                    
                                                 </div>
+                                                <span>
+                                                ${val.Quantity * val.price}    
+                                                </span>
                                                 <div className="delete">
-                                                    <FaTrash />
+                                                    <FaTrash 
+                                                    onClick={
+                                                        () =>
+                                                            dispatch({
+                                                                type: 'TRASH',
+                                                                id: val.id,
+                                                                val
+                                                            })
+
+                                                    }
+                                                    />
                                                 </div>
 
                                             </div>
@@ -125,7 +149,9 @@ const AddToCart = () => {
                                         </>
                                     )
 
-                                })
+                                }) : <div className={'text-center'}>
+                                    Cart is empty
+                                </div>
                             }
                         </div>
                         <div className={'summary'}>
@@ -133,7 +159,7 @@ const AddToCart = () => {
                             <h4>ORDER SUMMARY</h4>
                             <div className={'order-sum'}>
                                 <h5>TOTAL</h5>
-                                <h4>$ 100</h4>
+                                <h4>$ {totalAmount}</h4>
                             </div>
                         </div>
                     </div>
